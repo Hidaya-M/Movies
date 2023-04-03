@@ -4,7 +4,7 @@ import { useEffect , useState } from "react"
 import MovieCard from "./MovieCard"
 // we use hook cause we use function
 //  aceb8800  bring the code from your email
-const API_URL = "http://www.omdbapi.com?apikey=aceb8800"
+const API_URL = "https://www.omdbapi.com?apikey=aceb8800"
 const App = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [movies, setMovies] = useState([]);
