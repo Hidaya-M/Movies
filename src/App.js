@@ -1,25 +1,55 @@
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import "./App.css"
+import SearchIcon from "./search.svg"
+import { useEffect , useState } from "react"
+import MovieCard from "./MovieCard"
+// we use hook cause we use function
+//  aceb8800  bring the code from your email
+const API_URL = "http://www.omdbapi.com?apikey=aceb8800"
+const App = () => {
+    const [searchTerm, setSearchTerm] = useState("");
+    const [movies, setMovies] = useState([]);
+  
+    useEffect(() => {
+      searchMovies("Batman");
+    }, []);
+  
+    const searchMovies = async (title) => {
+      const response = await fetch(`${API_URL}&s=${title}`);
+      const data = await response.json();
+  
+      setMovies(data.Search);
+    };
+  
+    return (
+      <div className="app">
+        <h1>MovieLand</h1>
+  
+        <div className="search">
+          <input
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            placeholder="Search for movies"
+          />
+          <img
+            src={SearchIcon}
+            alt="search"
+            onClick={() => searchMovies(searchTerm)}
+          />
+        </div>
+  {/* if the name of the film dont exist */}
+        {movies?.length > 0 ? (
+          <div className="container">
+            {movies.map((movie) => (
+              <MovieCard movie={movie} />
+            ))}
+          </div>
+        ) : (
+          <div className="empty">
+            <h2>No movies found</h2>
+          </div>
+        )}
+      </div>
+    );
+  };
 
 export default App;
