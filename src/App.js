@@ -36,7 +36,7 @@ const App = () => {
             onClick={() => searchMovies(searchTerm)}
           />
         </div>
-  {/* if the name of the film dont exist */}
+
         {movies?.length > 0 ? (
           <div className="container">
             {movies.map((movie) => (
